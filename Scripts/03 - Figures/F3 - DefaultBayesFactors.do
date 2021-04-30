@@ -1,5 +1,5 @@
 * **************************************************************************** *
-* *** Figure S3: Bayes Factors ***                                             *
+* *** Figure 3: Bayes Factors ***                                             *
 * **************************************************************************** *
 quietly {
 	clear  all
@@ -8,7 +8,7 @@ quietly {
 
 	use    "../../Data/Data Processed/D3 - ReplicationResults.dta"
 	global N = _N
-	
+
 	* get colors
 	do     "../00 - Programs/P0 - Colors.do"
 }
@@ -21,7 +21,7 @@ forvalues i = 1 (1) $N {
 }
 
 #delimit ;
-label define study  
+label define study
 	 1 "Ackerman et al. (2010)`cr_1', Science"
 	 2 "Aviezer et al. (2012)`cr_2', Science"
 	 3 "Balafoutas and Sutter (2012)`cr_3', Science"
@@ -44,7 +44,7 @@ label define study
 	20 "Sparrow et al. (2011)`cr_20', Science"
 	21 "Wilson et al. (2014)`cr_21', Science",
 	replace;
-	
+
 label values study study;
 #delimit cr
 
@@ -58,7 +58,7 @@ quietly {
 
 		replace bfP0_rp = 300.00        if bfP0_rp > 300.00 & bfP0_rp != .
 		replace bfP0_rp = 0.0033        if bfP0_rp < 0.0033 & bfP0_rp != .
-		
+
 		gen     bfP0_rp_rep  = bfP0_rp
 		gen     bfP0_rp_nrep = bfP0_rp
 
@@ -67,7 +67,7 @@ quietly {
 
 		#delimit ;
 		local categories "
-			0.005774  "{it:extreme H{subscript:0}}" 
+			0.005774  "{it:extreme H{subscript:0}}"
 			0.018257  "{it:very strong H{subscript:0}}"
 			0.057735  "{it:strong H{subscript:0}}"
 			0.182574  "{it:moderate H{subscript:0}}"
@@ -81,18 +81,18 @@ quietly {
 
 		local scale "
 			0.0033 "{&le}1/300"
-			0.0100 "1/100" 
+			0.0100 "1/100"
 			0.0333 "1/30"
 			0.1000 "1/10"
 			0.3333 "1/3"
 			1.0000 "1"
 			3.0000 "3"
 			10.000 "10"
-			30.000 "30" 
+			30.000 "30"
 			100.00 "100"
 			300.00 "{&ge}300"
 		";
-		
+
 		twoway (
 			scatter study bfP0_rp_rep,
 				msymbol(d)
@@ -111,13 +111,13 @@ quietly {
 				xaxis(1 2)
 				xtitle("", axis(1))
 				xtitle(
-					"Default Bayes Factor", 
+					"Default Bayes Factor",
 					axis(2)
 					size(2)
 					margin(t=2.5 b=0.5)
 				)
 				xscale(
-					range(0.002 500) 
+					range(0.002 500)
 					log
 				)
 				xlabel(`categories',
@@ -162,7 +162,7 @@ quietly {
 					reverse
 				)
 				ylabel(1 (1) $N,
-					valuelabels 
+					valuelabels
 					labsize(1.8)
 					labgap(vsmall)
 					angle(0)
@@ -188,7 +188,7 @@ quietly {
 					bmargin(1 1 1 3)
 				)
 				xsize(20)
-				ysize(16.5)		
+				ysize(16.5)
 			);
 		#delimit cr
 	restore
